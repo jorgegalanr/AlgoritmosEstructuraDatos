@@ -1,5 +1,6 @@
 # Fase Implementación
-import Heap import MaxHeap, MinHeap
+from Heap  import MaxHeap, MinHeap
+import random
 
 # creamos un clase Paciente donde se recogerán los datos de las personas que lleguen a urgencias
 class Paciente:
@@ -51,6 +52,19 @@ class SalaEmergencias:
                 reporte.append(str(paciente))
             return reporte
     
+# Creamos la sala de emergencia
+sala_emergencia = SalaEmergencias()
 
+# Creación de los pacientes
+nombres = ["Juan", "Giussepe", "Miguel", "Antonio", "Maria", "Marta", "Emma", "Hellen", "Sandra", "Carlos", "Luis", "Josep", "Elisa", "Eloise", "David", "Eduardo"]
+for id_paciente in range(20):
+    nombre = random.choice(nombres)
+    nivel_urgencia = random.randint(1, 10)
+    horas_espera = random.randint(0,10)
+    paciente = Paciente(id_paciente, nombre, nivel_urgencia, horas_espera)
+    prioridad_sala.add_paciente(paciente)
 
+# Generamos el reporte con los pacientes atendidos.
+reporte_prioridad = prioridad_sala.reportes(20)
+reporte_prioridad
 
