@@ -1,3 +1,5 @@
+from Nodo import Nodo
+
 class Heap:
     def __init__(self, comparison_func):
         self.heap = []
@@ -48,28 +50,26 @@ class Heap:
 
     # inserta un nuevo elemento en el montículo. Salida -> Elemento a insertar en el montículo.
     def push(self, item):
-        self.heap.append(item)
+        nodo = Nodo(item)
+        self.heap.append(nodo)
         self._bubble_up(len(self.heap) - 1)
     
     # Elimina y devuelve el elemento en la cima del montículo. Salida -> Elemento en la cima del montículo. Si está vacío, devuelve None.
     def pop(self):
-        if not self.heap:
+        if self.is_empty():
             return None
-    
-        item = self.heap[0]
-        last = self.heap.pop()
-
+        # Intercambia el elemento superior con el último y realiza un sink down
+        self.heap[0], self.heap[-1] = self.heap[-1], self.heap[0]
+        top = self.heap.pop()
         if self.heap:
-            self.heap[0] = last
             self._sink_down(0)
-    
-        return item
+        return top.paciente
 
     # Devuelve el elemento en la cima del montículo sin eleminarlo. Salida -> Elemento en la cima del montículo. Si está vacío, devuelve None. 
     def peek(self):
-        if not self.heap:
+        if self.is_empty():
             return None
-        return self.heap[0]
+        return self.heap[0].paciente
     
     # Devuelve el número de elementos en el montículo. Salida -> Número de elementos en el montículo. 
     def size(self):
@@ -88,12 +88,12 @@ class Heap:
 class MaxHeap(Heap):
 
     def __init__(self):
-        super().__init__(lambda parent, child: parent.valor < child.valor)
+        super().__init__(lambda parent, child: parent.paciente < child.paciente)
 
 # Clase MinHeap para implementar un montículo mínimo, donde cada nodo padre es menor que sus hijos.
 # Hereda de la clase Heap. 
 class MinHeap(Heap):
 
     def __init__(self):
-        super().__init__(lambda parent, child: parent.valor > child.valor)
+        super().__init__(lambda parent, child: parent.paciente > child.paciente)
 
